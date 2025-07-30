@@ -2,41 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Integra Bar & Restaurante Design System
+Cores específicas conforme briefing visual:
+- Primária: #fb2404 (vermelho vibrante)
+- Texto: #1a1a1a (grafite escuro)  
+- Fundo: #f4f4f9 (cinza suave)
+- Cartões: #ffffff (branco)
+- WhatsApp: #25D366 (verde)
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Cores principais do Integra */
+    --background: 245 40% 97%; /* #f4f4f9 - Cinza suave neutro */
+    --foreground: 0 0% 10%; /* #1a1a1a - Grafite escuro sofisticado */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%; /* #ffffff - Branco puro para cartões */
+    --card-foreground: 0 0% 10%; /* #1a1a1a - Texto nos cartões */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 10%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 11 98% 50%; /* #fb2404 - Vermelho vibrante da marca */
+    --primary-foreground: 0 0% 100%; /* Branco para contraste no vermelho */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 95%; /* Cinza claro para elementos secundários */
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 245 20% 90%; /* Cinza neutro para elementos desabilitados */
+    --muted-foreground: 0 0% 45%; /* Texto suave */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 145 75% 42%; /* #25D366 - Verde WhatsApp */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 245 15% 85%; /* Bordas sutis */
+    --input: 245 15% 85%; 
+    --ring: 11 98% 50%; /* Ring igual ao primary */
 
-    --radius: 0.5rem;
+    --radius: 0.75rem; /* Bordas mais arredondadas para elegância */
+
+    /* Gradientes personalizados */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(11 95% 45%));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(245 25% 95%));
+    
+    /* Sombras elegantes */
+    --shadow-card: 0 4px 20px -2px hsl(var(--foreground) / 0.08);
+    --shadow-hover: 0 8px 30px -4px hsl(var(--foreground) / 0.12);
+    --shadow-modal: 0 20px 50px -12px hsl(var(--foreground) / 0.25);
+    
+    /* Transições suaves */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +118,42 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-roboto;
+  }
+}
+
+@layer components {
+  /* Tipografia do Integra */
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .font-roboto {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  /* Componentes customizados */
+  .menu-card {
+    @apply bg-card rounded-xl p-6 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)] transition-[box-shadow] duration-300;
+  }
+  
+  .menu-item {
+    @apply flex justify-between items-start p-4 hover:bg-muted/50 rounded-lg cursor-pointer transition-colors duration-200;
+  }
+  
+  .price-tag {
+    @apply text-primary font-semibold text-lg;
+  }
+  
+  .cart-slide {
+    @apply fixed top-0 right-0 h-full w-80 bg-card shadow-[var(--shadow-modal)] transform transition-transform duration-300 ease-out z-50;
+  }
+  
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/50 z-40 backdrop-blur-sm;
+  }
+  
+  .whatsapp-btn {
+    @apply bg-accent hover:bg-accent/90 text-accent-foreground font-medium px-6 py-3 rounded-lg transition-colors duration-200;
   }
 }
