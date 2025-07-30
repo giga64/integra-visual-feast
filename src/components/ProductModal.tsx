@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { Minus, Plus, X } from "lucide-react";
 import { MenuItem } from "./MenuCard";
 
@@ -8,17 +9,19 @@ interface ProductModalProps {
   item: MenuItem | null;
   isOpen: boolean;
   onClose: () => void;
-  onAddToCart: (item: MenuItem, quantity: number) => void;
+  onAddToCart: (item: MenuItem, quantity: number, observations?: string) => void;
 }
 
 const ProductModal = ({ item, isOpen, onClose, onAddToCart }: ProductModalProps) => {
   const [quantity, setQuantity] = useState(1);
+  const [observations, setObservations] = useState("");
 
   if (!item) return null;
 
   const handleAddToCart = () => {
-    onAddToCart(item, quantity);
+    onAddToCart(item, quantity, observations.trim() || undefined);
     setQuantity(1);
+    setObservations("");
     onClose();
   };
 
@@ -56,43 +59,63 @@ const ProductModal = ({ item, isOpen, onClose, onAddToCart }: ProductModalProps)
               </p>
             </DialogHeader>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <span className="font-medium text-foreground">Quantidade:</span>
-                <div className="flex items-center space-x-2">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={decrementQuantity}
-                    className="h-10 w-10"
-                  >
-                    <Minus className="h-4 w-4" />
-                  </Button>
-                  <span className="font-semibold text-xl w-8 text-center">
-                    {quantity}
-                  </span>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={incrementQuantity}
-                    className="h-10 w-10"
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
+            {/* Campo de observações */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-foreground mb-2">
+                Observações (opcional)
+              </label>
+              <Textarea
+                value={observations}
+                onChange={(e) => setObservations(e.target.value)}
+                placeholder="Ex: sem cebola, ponto da carne, molho à parte..."
+                className="min-h-[80px] resize-none"
+                maxLength={200}
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                {observations.length}/200 caracteres
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <span className="font-medium text-foreground">Quantidade:</span>
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={decrementQuantity}
+                      className="h-10 w-10"
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <span className="font-semibold text-xl w-8 text-center">
+                      {quantity}
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={incrementQuantity}
+                      className="h-10 w-10"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="text-right">
+                  <div className="price-tag text-2xl mb-4">
+                    R$ {(item.price * quantity).toFixed(2)}
+                  </div>
                 </div>
               </div>
 
-              <div className="text-right">
-                <div className="price-tag text-2xl mb-4">
-                  R$ {(item.price * quantity).toFixed(2)}
-                </div>
-                <Button
-                  onClick={handleAddToCart}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg font-medium"
-                >
-                  Adicionar ao Carrinho
-                </Button>
-              </div>
+              <Button
+                onClick={handleAddToCart}
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg font-medium w-full"
+              >
+                Adicionar ao Carrinho
+              </Button>
             </div>
           </div>
         </div>

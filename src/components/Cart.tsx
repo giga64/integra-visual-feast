@@ -5,6 +5,7 @@ import { MenuItem } from "./MenuCard";
 
 interface CartItem extends MenuItem {
   quantity: number;
+  observations?: string;
 }
 
 interface CartProps {
@@ -70,42 +71,49 @@ const Cart = ({ items, onUpdateQuantity, onRemoveItem, onCheckout }: CartProps) 
                 ) : (
                   <div className="space-y-4">
                     {items.map((item) => (
-                      <div key={item.id} className="flex items-center space-x-4 p-4 bg-muted/30 rounded-lg">
-                        <div className="flex-1">
-                          <h3 className="font-medium text-sm">{item.name}</h3>
-                          <p className="text-muted-foreground text-xs">
-                            R$ {item.price.toFixed(2)} cada
-                          </p>
-                        </div>
-                        
-                        <div className="flex items-center space-x-2">
-                          <button
-                            onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
-                            className="p-1 hover:bg-muted rounded"
-                          >
-                            <Minus className="h-4 w-4" />
-                          </button>
-                          <span className="w-8 text-center font-medium">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                            className="p-1 hover:bg-muted rounded"
-                          >
-                            <Plus className="h-4 w-4" />
-                          </button>
-                        </div>
-                        
-                        <div className="text-right">
-                          <div className="font-semibold text-sm">
-                            R$ {(item.price * item.quantity).toFixed(2)}
+                       <div key={item.id} className="p-4 bg-muted/30 rounded-lg">
+                        <div className="flex items-start space-x-4">
+                          <div className="flex-1">
+                            <h3 className="font-medium text-sm">{item.name}</h3>
+                            <p className="text-muted-foreground text-xs mb-2">
+                              R$ {item.price.toFixed(2)} cada
+                            </p>
+                            {item.observations && (
+                              <p className="text-xs text-muted-foreground bg-muted/50 p-2 rounded italic">
+                                📝 {item.observations}
+                              </p>
+                            )}
                           </div>
-                          <button
-                            onClick={() => onRemoveItem(item.id)}
-                            className="text-destructive text-xs hover:underline"
-                          >
-                            Remover
-                          </button>
+                          
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+                              className="p-1 hover:bg-muted rounded"
+                            >
+                              <Minus className="h-4 w-4" />
+                            </button>
+                            <span className="w-8 text-center font-medium">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                              className="p-1 hover:bg-muted rounded"
+                            >
+                              <Plus className="h-4 w-4" />
+                            </button>
+                          </div>
+                          
+                          <div className="text-right">
+                            <div className="font-semibold text-sm">
+                              R$ {(item.price * item.quantity).toFixed(2)}
+                            </div>
+                            <button
+                              onClick={() => onRemoveItem(item.id)}
+                              className="text-destructive text-xs hover:underline"
+                            >
+                              Remover
+                            </button>
+                          </div>
                         </div>
                       </div>
                     ))}

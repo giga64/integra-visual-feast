@@ -84,7 +84,7 @@ const Index = () => {
     setSelectedItem(item);
   };
 
-  const handleAddToCart = (item: MenuItem, quantity: number) => {
+  const handleAddToCart = (item: MenuItem, quantity: number, observations?: string) => {
     setCartItems(prev => {
       const existingItem = prev.find(cartItem => cartItem.id === item.id);
       
@@ -95,12 +95,12 @@ const Index = () => {
             : cartItem
         );
       } else {
-        return [...prev, { ...item, quantity }];
+        return [...prev, { ...item, quantity, observations }];
       }
     });
     
     toast.success(`${item.name} adicionado ao carrinho!`, {
-      description: `Quantidade: ${quantity}`,
+      description: `Quantidade: ${quantity}${observations ? ` • ${observations}` : ''}`,
     });
   };
 
@@ -128,6 +128,9 @@ const Index = () => {
     
     items.forEach(item => {
       message += `${item.quantity}x ${item.name}\n`;
+      if (item.observations) {
+        message += `📝 ${item.observations}\n`;
+      }
       message += `R$ ${item.price.toFixed(2)} cada\n`;
       message += `Subtotal: R$ ${(item.price * item.quantity).toFixed(2)}\n\n`;
     });
