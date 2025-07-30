@@ -2,7 +2,7 @@ import logoIntegra from "@/assets/logo-integra.png";
 
 const Header = () => {
   return (
-    <header className="bg-primary w-full py-6 sticky top-0 z-30 shadow-lg">
+    <header className="bg-primary w-full py-6 sticky top-0 z-30 shadow-lg safe-area-top">
       <div className="container mx-auto px-4">
         <div className="flex justify-center">
           <img 

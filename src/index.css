@@ -146,7 +146,7 @@ Cores específicas conforme briefing visual:
   }
   
   .cart-slide {
-    @apply fixed top-0 right-0 h-full w-80 bg-card shadow-[var(--shadow-modal)] transform transition-transform duration-300 ease-out z-50;
+    @apply fixed top-0 right-0 h-full bg-card shadow-[var(--shadow-modal)] transform transition-transform duration-300 ease-out z-50;
   }
   
   .modal-overlay {
@@ -155,5 +155,34 @@ Cores específicas conforme briefing visual:
   
   .whatsapp-btn {
     @apply bg-accent hover:bg-accent/90 text-accent-foreground font-medium px-6 py-3 rounded-lg transition-colors duration-200;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .menu-card {
+      @apply p-4;
+    }
+    
+    .menu-item {
+      @apply p-3;
+    }
+    
+    .cart-slide {
+      @apply w-full;
+    }
+  }
+
+  /* Safe area for mobile devices */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Touch optimization */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
   }
 }

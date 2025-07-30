@@ -32,7 +32,7 @@ const Cart = ({ items, onUpdateQuantity, onRemoveItem, onCheckout }: CartProps) 
       {/* Cart Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 bg-primary hover:bg-primary/90 text-primary-foreground p-4 rounded-full shadow-lg transition-colors z-40"
+        className="fixed bottom-6 right-6 bg-primary hover:bg-primary/90 text-primary-foreground p-4 rounded-full shadow-lg transition-colors z-40 touch-target safe-area-bottom"
       >
         <ShoppingCart className="h-6 w-6" />
         {totalItems > 0 && (
@@ -49,7 +49,7 @@ const Cart = ({ items, onUpdateQuantity, onRemoveItem, onCheckout }: CartProps) 
             className="modal-overlay"
             onClick={() => setIsOpen(false)}
           />
-          <div className={`cart-slide ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className={`cart-slide ${isOpen ? 'translate-x-0' : 'translate-x-full'} max-w-sm w-full`}>
             <div className="flex flex-col h-full">
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b">

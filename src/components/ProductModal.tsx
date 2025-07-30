@@ -30,7 +30,7 @@ const ProductModal = ({ item, isOpen, onClose, onAddToCart }: ProductModalProps)
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl p-0 overflow-hidden">
+      <DialogContent className="max-w-2xl p-0 overflow-hidden mx-4 max-h-[90vh] overflow-y-auto">
         <div className="relative">
           <button
             onClick={onClose}
@@ -49,7 +49,7 @@ const ProductModal = ({ item, isOpen, onClose, onAddToCart }: ProductModalProps)
             </div>
           )}
           
-          <div className="p-8">
+          <div className="p-4 md:p-8">
             <DialogHeader className="mb-6">
               <h2 className="font-playfair text-3xl font-semibold text-foreground">
                 {item.name}
